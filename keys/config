@@ -1,0 +1,7 @@
+Host holohover
+        Hostname github.com
+        IdentityFile=/home/ubuntu/holohover-docker/keys/holohover
+
+Host laopt
+        Hostname github.com
+        IdentityFile=/home/ubuntu/holohover-docker/keys/laopt

@@ -29,7 +29,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j12
 sudo make install
 
-
+cd
 echo "Installing PIQP"
 git clone https://github.com/PREDICT-EPFL/piqp.git
 cd piqp

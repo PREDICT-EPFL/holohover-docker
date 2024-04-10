@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     nano \
     less \
     libbox2d-dev \
-    libeigen3-dev
+    libeigen3-dev \
+    libmatio-dev
 
 RUN echo "export ROS_DOMAIN_ID=0; source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc
 

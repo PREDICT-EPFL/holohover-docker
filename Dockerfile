@@ -1,4 +1,5 @@
-FROM ros:humble-ros-base
+FROM osrf/ros:humble-desktop
+#FROM ros:humble
 
 WORKDIR /root/ros2_ws
 
@@ -24,5 +25,7 @@ COPY ./ws/src /root/ros2_ws/src
 
 RUN cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/sProb_chain_QCQP_N20 && bash gen_locFuns.sh
 
-RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select pingpong holohover_msgs holohover_common holohover_dmpc holohover_utils
+RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install 
+
+#--packages-select pingpong holohover_msgs holohover_common holohover_dmpc holohover_utils
 

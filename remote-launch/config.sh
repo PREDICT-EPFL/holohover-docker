@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # List of remote IP addresses and machine names
-REMOTE_IPS=("localhost" "ubuntu@192.168.0.71")
-MACHINE_NAMES=("master" "la016")
-IMAGE_NAMES=("holohover" "holohover")
+REMOTE_IPS=("localhost") # "ubuntu@192.168.0.71")
+MACHINE_NAMES=("master") # "la016")
+IMAGE_NAMES=("holohover") # "holohover")
 
 LAUNCH_FILE="mult.dmpc.simulation.launch.py"
 OPT_ALG="admm"

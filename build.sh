@@ -1,4 +1,24 @@
-echo $0" - Building the docker image"
-sudo docker build --platform "linux/arm64" . -t holohover-light-a
+if [ "$#" -ne 1 ]; then
+    echo "$0 - Wrong number of parameters"
+    echo "Usage:"
+    echo "   $0 [pi/pc]"
+    exit -1
+fi
 
+if [ "$1" = "pi" ]; then
+    platform="linux/arm64"
+    image="holohover-light-aa"
+elif [ "$1" = "pc" ]; then
+    platform="linux/amd64"
+    image="holohover"
+else
+    echo "Invalid platform: $1"
+    echo "Usage:"
+    echo "   $0 [pi/pc]"
+    exit -1
+fi
+
+echo $0" - Building docker image $image for platform $platform"
+sudo docker build  . -t $image
+#--platform $platform
 echo $0" - Finish!"

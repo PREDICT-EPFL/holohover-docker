@@ -6,6 +6,8 @@ MACHINE_NAMES=("la016" "la017" "pi" "master")
 IMAGE_NAMES=("holohover" "holohover" "holohover-light-a" "holohover")
 USERS=("ubuntu" "ubuntu" "pi" "andrea")
 
+MAIN_IP="192.168.0.70"
+
 LAUNCH_FILE="mult.dmpc.simulation.launch.py"
 OPT_ALG="admm"
 EXPERIMENT_FILE="experiment_h_all.yaml"

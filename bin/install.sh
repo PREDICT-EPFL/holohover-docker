@@ -19,15 +19,15 @@ make -j12
 sudo make install
 
 
-echo "Installing qpOASES"
-git clone https://github.com/coin-or/qpOASES.git
-cd qpOASES
+#echo "Installing qpOASES"
+#git clone https://github.com/coin-or/qpOASES.git
+#cd qpOASES
 
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j12
-sudo make install
+#mkdir build
+#cd build
+#cmake .. -DCMAKE_BUILD_TYPE=Release
+#make -j12
+#sudo make install
 
 cd
 echo "Installing PIQP"

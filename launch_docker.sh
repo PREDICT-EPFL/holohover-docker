@@ -1,11 +1,18 @@
 #!/bin/bash
 
+
+# nome immagine
+# launch file
+# experiment file
+# opt_alg
+# machine_name
+
 DIRECTORY=~/holohover-docker/
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 5 ]; then
     echo "$0 - Wrong number of parameters"
     echo "Usage:"
-    echo "   $0 EXPERIMENT_FILE OPT_ALG MACHINE_NAME"
+    echo "   $0 IMAGE_NAME LAUNCH_FILE EXPERIMENT_FILE OPT_ALG MACHINE_NAME"
     exit -1
 fi
 
@@ -20,7 +27,4 @@ sudo docker run --rm --name holohover \
     --volume="./.bash_history:/root/.bash_history" \
     --volume="$DIRECTORY/ws:/root/ros2_ws" \
     --network host \
-    holohover bash -c "source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.sh && ros2 launch holohover_utils mult.dmpc.simulation.launch.py experiment:='$1' machine:='$3' opt_alg:='$2'"
-
-
-    #holohover bash -c "source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.sh && ros2 launch holohover_utils mult.dmpc.simulation.launch.py experiment:='$1' machine:='$2' opt_alg:='$3'"
+    $1 bash -c "source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.sh && ros2 launch holohover_utils $2 experiment:='$3' opt_alg:='$4' machine:='$5'"

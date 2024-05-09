@@ -3,10 +3,10 @@
 if [ "$#" -ne 2 ]; then
     echo "$0 - Wrong number of parameters"
     echo "Usage:"
-    echo "   $0 IP INDEX"
+    echo "   $0 FILE IP INDEX"
     exit -1
 fi
 
-port=$((5000 + $2))
+port=$((5000 + $3))
 
-tail -f ~/holohover-docker/log/console-2024_05_08_23_38_35.log | nc $1 $port
+tail -f $1 | nc $2 $port

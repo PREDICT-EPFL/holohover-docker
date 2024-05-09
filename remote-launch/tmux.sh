@@ -23,19 +23,19 @@ tmux \
 sleep 0.1
 
 tmux select-pane -t 1
-tmux send-keys 'nc -lp 5000' C-m
+tmux send-keys 'nc -vvv -lp 5000' C-m
 
 tmux select-pane -t 2
-tmux send-keys 'nc -lp 5001' C-m
+tmux send-keys 'nc -vvv -lp 5001' C-m
 
 tmux select-pane -t 3
-tmux send-keys 'nc -lp 5002' C-m
+tmux send-keys 'nc -vvv -lp 5002' C-m
 
 tmux select-pane -t 4
-tmux send-keys 'nc -lp 5003' C-m
+tmux send-keys 'nc -vvv -lp 5003' C-m
 
 tmux select-pane -t 5
-tmux send-keys 'nc -lp 5004' C-m
+tmux send-keys 'nc -vvv -lp 5004' C-m
 
 tmux select-pane -t 0
 tmux send-keys 'bash experiment.sh'

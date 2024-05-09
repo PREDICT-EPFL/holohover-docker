@@ -22,8 +22,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         
         echo ssh ${REMOTE_IPS[i]} $CMD
         ssh ${REMOTE_IPS[i]} $CMD
-        echo ssh ${REMOTE_IPS[i]} "~/holohover-docker/remote-launch/log.sh $MAIN_IP $i >/dev/null 2>&1 &"
-        ssh ${REMOTE_IPS[i]} "~/holohover-docker/remote-launch/log.sh $MAIN_IP $i >/dev/null 2>&1 &"
+        echo ssh ${REMOTE_IPS[i]} "~/holohover-docker/remote-launch/log.sh $LOG_FILE $MAIN_IP $i >/dev/null 2>&1 &"
+        ssh ${REMOTE_IPS[i]} "~/holohover-docker/remote-launch/log.sh $LOG_FILE $MAIN_IP $i >/dev/null 2>&1 &"
     fi
 
     printf '\n\n\n'

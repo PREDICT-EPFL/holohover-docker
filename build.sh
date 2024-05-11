@@ -19,6 +19,5 @@ else
 fi
 
 echo $0" - Building docker image $image for platform $platform"
-sudo docker build  . -t $image
-#--platform $platform
+sudo docker build --platform $platform . -t $image
 echo $0" - Finish!"

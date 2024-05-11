@@ -3,7 +3,7 @@
 # List of remote IP addresses and machine names
 REMOTE_IPS=("ubuntu@192.168.0.71" "ubuntu@192.168.0.72" "ubuntu@192.168.0.140")
 MACHINE_NAMES=("la016" "la017" "pi")
-IMAGE_NAMES=("holohover" "holohover" "holohover-light-a")
+IMAGE_NAMES=("holohover" "holohover" "holohover-light-aa")
 USERS=("ubuntu" "ubuntu" "ubuntu")
 
 MAIN_IP="192.168.0.70"

@@ -21,6 +21,7 @@ echo "Image: $1"
 echo "Starting"
 
 sudo docker run --rm --name $1 \
+    --cap-add=SYS_NICE \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \

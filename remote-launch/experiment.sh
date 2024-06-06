@@ -36,7 +36,7 @@ tmux \
     split-window -v \; \
     select-layout tiled
     
-sleep 0.1
+sleep 0.2
 
 
 
@@ -50,10 +50,13 @@ tmux select-pane -t 3
 tmux send-keys "ssh ${REMOTE_IPS[2]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 4
-tmux send-keys "bash launch_trajectory.sh trajectory4.yaml"
+tmux send-keys "ssh ${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 5
-tmux send-keys "bash stop_experiment.sh"
+tmux send-keys "bash launch_trajectory.sh trajectory4.yaml"
+
+#tmux select-pane -t 5
+#tmux send-keys "bash stop_experiment.sh"
 
 tmux select-pane -t 0
 tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE $OPT_ALG master" C-m

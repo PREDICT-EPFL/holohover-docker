@@ -22,5 +22,10 @@ fi
 
 echo $0" - Building docker image $image for platform $platform"
 sudo docker build --platform $platform . -t $image
-echo $0" - Finish!"
+echo $0" - Finished building!"
+echo $0" - Tagging and pushing to registry"
+sudo docker tag $image localhost:5000/$image
+docker push localhost:5000/$image
+echo $0" - Finished!"
+
 rm Dockerfile

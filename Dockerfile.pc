@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libbox2d-dev \
     libeigen3-dev \
     libmatio-dev \
+    libgpiod-dev \
     ros-humble-rosbag2-storage-mcap \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
@@ -23,9 +24,4 @@ RUN echo aaaa
 
 COPY ./ws/src /root/ros2_ws/src
 
-RUN cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/sProb_chain_QCQP_N20 && bash gen_locFuns.sh
-
 RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install 
-
-#--packages-select pingpong holohover_msgs holohover_common holohover_dmpc holohover_utils
-

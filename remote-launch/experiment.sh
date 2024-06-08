@@ -6,9 +6,22 @@ source ./config.sh
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
         echo scp -r ~/holohover-docker/config/* ${REMOTE_IPS[i]}:~/holohover-docker/config
-        scp -r ~/holohover-docker/config/* ${REMOTE_IPS[i]}:~/holohover-docker/config
+        scp -r ~/holohover-docker/config/* ${REMOTE_IPS[i]}:~/holohover-docker/config &
     fi
 done
+
+wait
+
+# Loop through each remote machine
+for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
+    if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
+        CMD="sudo systemctl restart docker"
+        echo ssh ${REMOTE_IPS[i]} $CMD
+        ssh ${REMOTE_IPS[i]} $CMD &
+    fi
+done
+
+wait
 
 # Loop through each remote machine
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
@@ -52,16 +65,11 @@ tmux send-keys "ssh ${REMOTE_IPS[2]} \"tail -f $LOG_FILE\"" C-m
 tmux select-pane -t 4
 tmux send-keys "ssh ${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
 
-tmux select-pane -t 5
-tmux send-keys "bash launch_trajectory.sh trajectory4.yaml"
-
-#tmux select-pane -t 5
-#tmux send-keys "bash stop_experiment.sh"
-
 tmux select-pane -t 0
 tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE $OPT_ALG master" C-m
 
-
-tmux select-pane -t 4
+tmux select-pane -t 5
+tmux send-keys "bash stop_experiment.sh"
+#tmux send-keys "bash launch_trajectory.sh trajectory4.yaml"
 
 tmux attach-session -t "Holohover"

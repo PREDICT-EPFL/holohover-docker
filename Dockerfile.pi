@@ -23,7 +23,12 @@ RUN echo aaaa
 
 COPY ./ws/src /root/ros2_ws/src
 
-RUN cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/sProb_chain_QP_N10_acc_100_damped && bash gen_locFuns.sh
 
 RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select pingpong holohover_msgs holohover_common holohover_dmpc holohover_utils holohover_navigation holohover_drivers
 
+
+# to remove the symlink
+RUN OCP_SPECS=sProb_chain_QCQP_N20 && \
+    cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
+    rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
+    cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs

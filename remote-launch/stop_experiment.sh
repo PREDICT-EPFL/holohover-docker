@@ -13,6 +13,9 @@ done
 
 wait
 
+# Stop local process
+tmux select-pane -t 0
+tmux send-keys  C-c
 #sudo docker stop holohover
 
 DIR=~/holohover-docker/log/remote-$DATE/master

@@ -5,6 +5,7 @@ REMOTE_IPS=("ubuntu@192.168.0.71" "ubuntu@192.168.0.72" "ubuntu@192.168.0.140" "
 MACHINE_NAMES=("la016" "la017" "radxa" "pi")
 IMAGE_NAMES=("holohover" "holohover" "holohover-light-aa" "holohover-light-aa")
 USERS=("ubuntu" "ubuntu" "ubuntu" "ubuntu")
+EMBEDDED_CONTROLLER=(false false true true)
 
 #REMOTE_IPS=("ubuntu@192.168.0.131")
 #MACHINE_NAMES=("radxa_new")

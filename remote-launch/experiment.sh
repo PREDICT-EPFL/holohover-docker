@@ -2,11 +2,19 @@
 
 source ./config.sh
 
+if [ "$#" -ne 1 ]; then
+    echo "$0 - Wrong number of parameters"
+    echo "Usage:"
+    echo "   $0 EXPERIMENT_FILE"
+    exit -1
+fi
+
+EXPERIMENT_FILE=$1
 
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
-        echo scp -r ~/holohover-docker/config/* ${REMOTE_IPS[i]}:~/holohover-docker/config
-        scp -r ~/holohover-docker/config/* ${REMOTE_IPS[i]}:~/holohover-docker/config &
+        echo rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws
+        rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws &
     fi
 done
 
@@ -66,7 +74,9 @@ tmux select-pane -t 4
 tmux send-keys "ssh ${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 0
-tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE $OPT_ALG master" C-m
+
+tmux send-keys "docker exec -it holohover /bin/bash -c \"export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $LAUNCH_FILE experiment:=$EXPERIMENT_FILE opt_alg:=$OPT_ALG machine:=master record:='true'\" " C-m
+# tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE $OPT_ALG master" C-m
 
 tmux select-pane -t 5
 tmux send-keys "bash stop_experiment.sh"

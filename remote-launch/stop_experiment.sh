@@ -13,7 +13,7 @@ done
 
 wait
 
-sudo docker stop holohover
+#sudo docker stop holohover
 
 DIR=~/holohover-docker/log/remote-$DATE/master
 mkdir -p $DIR

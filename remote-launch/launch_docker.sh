@@ -26,8 +26,7 @@ sudo docker run --rm --name $1 \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="$DIRECTORY/log:/root/ros2_ws/log" \
-    --volume="$DIRECTORY/config/holohover_utils:/root/ros2_ws/src/holohover/holohover_utils/config" \
-    --volume="$DIRECTORY/config/holohover_dmpc:/root/ros2_ws/src/holohover/holohover_dmpc/config" \
+    --volume="$(pwd)/ws/src:/root/ros2_ws/src" \
     --volume="/home/$USER/.Xauthority:/root/.Xauthority" \
     --volume="$DIRECTORY/.bash_history:/root/.bash_history" \
     --network host \

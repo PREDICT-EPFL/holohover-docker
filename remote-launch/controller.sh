@@ -23,6 +23,7 @@ echo "Image: $1"
 echo "Starting controller"
 
 sudo docker run --rm --name controller \
+    --privileged \
     --cap-add=SYS_NICE \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \

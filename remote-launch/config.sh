@@ -15,8 +15,6 @@ EMBEDDED_CONTROLLER=(false false true true)
 MAIN_IP="192.168.0.70"
 
 LAUNCH_FILE="mult.dmpc.simulation.launch.py"
-OPT_ALG="admm"
-#EXPERIMENT_FILE="experiment1.yaml"
 
 DATE=$(date +"%Y_%m_%d_%H_%M_%S")
 

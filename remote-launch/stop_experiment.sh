@@ -4,14 +4,12 @@ source ./config.sh
 
 # Loop through each remote machine
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
-    if ! ${EMBEDDED_CONTROLLER[i]} ; then
+    #COMMAND="sudo docker stop ${IMAGE_NAMES[i]}"
+    COMMAND="sudo docker exec ${IMAGE_NAMES[i]} /bin/bash /root/stop_controller.sh"
 
-        COMMAND="sudo docker stop ${IMAGE_NAMES[i]}"
-
-        #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
-        echo ssh ${REMOTE_IPS[i]} $COMMAND
-        ssh ${REMOTE_IPS[i]} $COMMAND &
-    fi
+    #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
+    echo ssh ${REMOTE_IPS[i]} $COMMAND
+    ssh ${REMOTE_IPS[i]} $COMMAND
 done
 
 wait

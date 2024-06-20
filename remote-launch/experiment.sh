@@ -39,13 +39,12 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
         
         echo ssh ${REMOTE_IPS[i]} $CMD
-        #ssh ${REMOTE_IPS[i]} $CMD
+        ssh ${REMOTE_IPS[i]} $CMD
     fi
 
     printf '\n\n\n'
 done
 
-exit
 
 tmux new-session -d -s "Holohover"
 

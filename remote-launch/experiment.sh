@@ -20,16 +20,16 @@ done
 
 wait
 
-# Loop through each remote machine
-for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
-    if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
-        CMD="sudo systemctl restart docker"
-        echo ssh ${REMOTE_IPS[i]} $CMD
-        ssh ${REMOTE_IPS[i]} $CMD &
-    fi
-done
+# # Loop through each remote machine
+# for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
+#     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
+#         CMD="sudo systemctl restart docker"
+#         echo ssh ${REMOTE_IPS[i]} $CMD
+#         ssh ${REMOTE_IPS[i]} $CMD &
+#     fi
+# done
 
-wait
+# wait
 
 # Loop through each remote machine
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
@@ -39,12 +39,13 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
         
         echo ssh ${REMOTE_IPS[i]} $CMD
-        ssh ${REMOTE_IPS[i]} $CMD
+        #ssh ${REMOTE_IPS[i]} $CMD
     fi
 
     printf '\n\n\n'
 done
 
+exit
 
 tmux new-session -d -s "Holohover"
 

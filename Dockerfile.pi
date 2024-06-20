@@ -4,6 +4,7 @@ WORKDIR /root/ros2_ws
 
 COPY ./bin/install.sh /root/install.sh
 
+
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
     libbox2d-dev \
@@ -24,11 +25,33 @@ RUN echo aaaa
 COPY ./ws/src /root/ros2_ws/src
 
 
-RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select pingpong holohover_msgs holohover_common holohover_dmpc holohover_utils holohover_navigation holohover_drivers
+RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select holohover_msgs holohover_drivers holohover_utils holohover_common  holohover_navigation holohover_control holohover_dmpc
+
+COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh
+RUN /bin/bash /root/ocpSpecsSymlink.sh amd64
 
 
-# to remove the symlink
-RUN OCP_SPECS=sProb_chain_QCQP_N20 && \
-    cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
-    rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
-    cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs
+# # # to remove the symlink
+# # RUN OCP_SPECS=sProb_chain_QCQP_N10 && \
+# #     cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
+# #     rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
+# #     cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs
+
+# # # to remove the symlink
+# # RUN OCP_SPECS=sProb_chain_QCQP_N10_100_traj && \
+# #     cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
+# #     rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
+# #     cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs
+
+# # to remove the symlink
+# RUN OCP_SPECS=sProb_chain_QCQP_N10_2 && \
+#     cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
+#     rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
+#     cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs
+
+
+# # # to remove the symlink
+# # RUN OCP_SPECS=sProb_chain_QCQP_N20 && \
+# #     cd /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS && bash gen_locFuns.sh && \
+# #     rm -rf  /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs/$OCP_SPECS && \
+# #     cp -r /root/ros2_ws/src/holohover/holohover_dmpc/ocp_specs/$OCP_SPECS /root/ros2_ws/install/holohover_dmpc/share/holohover_dmpc/ocp_specs

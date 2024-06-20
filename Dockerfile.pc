@@ -26,3 +26,6 @@ RUN echo aaaa
 COPY ./ws/src /root/ros2_ws/src
 
 RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install 
+
+COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh
+RUN /bin/bash /root/ocpSpecsSymlink.sh x86

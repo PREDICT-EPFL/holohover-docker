@@ -1,9 +1,14 @@
 echo $0" - Starting the container."
+if [ "$#" -ne 1 ]; then
+	CONT="holohover"
+else
+	CONT=$1
+fi
 
 touch .bash_history
 mkdir -p log
 
-sudo docker run -it --rm --name holohover \
+sudo docker run -it --rm --name $CONT \
     --cap-add=SYS_NICE \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
@@ -13,5 +18,5 @@ sudo docker run -it --rm --name holohover \
     --volume="/home/$USER/.Xauthority:/root/.Xauthority" \
     --volume="./.bash_history:/root/.bash_history" \
     --network host \
-    holohover
+    $CONT
 

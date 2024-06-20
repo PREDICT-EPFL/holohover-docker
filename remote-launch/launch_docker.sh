@@ -19,7 +19,7 @@ echo "This machine is: $4"
 echo "Image: $1"
 echo "Starting"
 
-sudo docker exec -it $1 "/bin/bash export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
+sudo docker exec $1 "/bin/bash export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
 
 # sudo docker run --rm --name $1 \
 #     --cap-add=SYS_NICE \

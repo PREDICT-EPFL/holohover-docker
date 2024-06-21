@@ -17,12 +17,30 @@ wait
 # Stop local process
 tmux select-pane -t 0
 tmux send-keys  C-c
+tmux select-pane -t 5
+
 #sudo docker stop holohover
 
-DIR=~/holohover-docker/log/remote-$DATE/master
+DIR=~/holohover-docker/log/remote-$DATE
 mkdir -p $DIR
-sudo mv ~/holohover-docker/log/rosbag* $DIR/..
-sudo mv ~/holohover-docker/log/dmpc* $DIR
+mkdir -p $DIR/master
+
+sudo mv ~/holohover-docker/log/rosbag* $DIR
+sudo mv ~/holohover-docker/log/dmpc* $DIR/master
+
+
+read -p "Do you want to save logs? (YES/no): " answer
+
+case $answer in
+    [Nn][Oo]|[Nn])
+        echo "Deleting logs."
+        sudo mv $DIR /tmp
+        ;;
+    *)
+        echo "SAVING LOGS"
+        nano $DIR/readme.md
+        ;;
+esac
 
 
 # Loop through each remote machine

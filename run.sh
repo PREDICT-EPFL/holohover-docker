@@ -9,6 +9,7 @@ touch .bash_history
 mkdir -p log
 
 sudo docker run -it --rm --name $CONT \
+    --privileged \
     --cap-add=SYS_NICE \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \

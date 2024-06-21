@@ -19,16 +19,19 @@ echo "This machine is: $4"
 echo "Image: $1"
 echo "Starting"
 
-sudo docker exec $1 /bin/bash -c "export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
-
-# sudo docker run --rm --name $1 \
-#     --cap-add=SYS_NICE \
-#     --env="DISPLAY" \
-#     --env="QT_X11_NO_MITSHM=1" \
-#     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-#     --volume="$DIRECTORY/log:/root/ros2_ws/log" \
-#     --volume="$DIRECTORY/ws/src:/root/ros2_ws/src" \
-#     --volume="/home/$USER/.Xauthority:/root/.Xauthority" \
-#     --volume="$DIRECTORY/.bash_history:/root/.bash_history" \
-#     --network host \
-#     $1 bash -c "export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
+if docker ps --filter "name=$1" --filter "status=running" | grep -q $1; then
+    sudo docker exec $1 /bin/bash -c "export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
+else
+    sudo docker run --rm --name $1 \
+    --privileged \
+    --cap-add=SYS_NICE \
+    --env="DISPLAY" \
+    --env="QT_X11_NO_MITSHM=1" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --volume="$DIRECTORY/log:/root/ros2_ws/log" \
+    --volume="$DIRECTORY/ws/src:/root/ros2_ws/src" \
+    --volume="/home/$USER/.Xauthority:/root/.Xauthority" \
+    --volume="$DIRECTORY/.bash_history:/root/.bash_history" \
+    --network host \
+    $1 bash -c "export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $2 experiment:='$3' machine:='$4' record:='true'"
+fi

@@ -29,18 +29,6 @@ sudo mv ~/holohover-docker/log/rosbag* $DIR
 sudo mv ~/holohover-docker/log/dmpc* $DIR/master
 
 
-read -p "Do you want to save logs? (YES/no): " answer
-
-case $answer in
-    [Nn][Oo]|[Nn])
-        echo "Deleting logs."
-        sudo mv $DIR /tmp
-        ;;
-    *)
-        echo "SAVING LOGS"
-        nano $DIR/readme.md
-        ;;
-esac
 
 
 # Loop through each remote machine
@@ -52,6 +40,21 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     echo ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
     ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
 done
+
+read -p "Do you want to save logs? (YES/no): " answer
+
+DIR=~/holohover-docker/log/remote-$DATE
+
+case $answer in
+    [Nn][Oo]|[Nn])
+        echo "Deleting logs."
+        sudo mv $DIR /tmp
+        ;;
+    *)
+        echo "SAVING LOGS"
+        nano $DIR/readme.md
+        ;;
+esac
 
 
 

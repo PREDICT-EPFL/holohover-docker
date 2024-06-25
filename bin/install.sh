@@ -7,6 +7,18 @@ curr_dir=$(pwd)
 # move to home directory
 cd
 
+echo "Installing QUILL..."
+git clone http://github.com/odygrd/quill.git quill
+cd quill
+
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j12
+sudo make install
+
+cd
+
 echo "Installing CASADI..."
 git clone https://github.com/casadi/casadi.git casadi
 cd casadi
@@ -17,17 +29,6 @@ cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j12
 sudo make install
-
-
-#echo "Installing qpOASES"
-#git clone https://github.com/coin-or/qpOASES.git
-#cd qpOASES
-
-#mkdir build
-#cd build
-#cmake .. -DCMAKE_BUILD_TYPE=Release
-#make -j12
-#sudo make install
 
 cd
 echo "Installing PIQP"

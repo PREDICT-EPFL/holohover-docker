@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+DIRECTORY=~/holohover-docker/
+
 if [ "$#" -ne 1 ]; then
     echo "$0 - Wrong number of parameters"
     echo "Usage:"

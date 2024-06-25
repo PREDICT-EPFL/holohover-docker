@@ -1,24 +1,21 @@
 #!/bin/bash
 
-# List of remote IP addresses and machine names
-# REMOTE_IPS=("ubuntu@192.168.0.71" "ubuntu@192.168.0.72" "ubuntu@192.168.0.140" "ubuntu@192.168.0.113" "ubuntu@192.168.0.131")
-# MACHINE_NAMES=("la016" "la017" "radxa" "pi" "radxa_new")
-# IMAGE_NAMES=("holohover" "holohover" "holohover-light-aa" "holohover-light-aa" "holohover-light-aa")
-# USERS=("ubuntu" "ubuntu" "ubuntu" "ubuntu" "ubuntu")
-# EMBEDDED_CONTROLLER=(false false false false true)
+# To run ONBOARD
+REMOTE_IPS=("ubuntu@192.168.0.131" "ubuntu@192.168.0.122" "ubuntu@192.168.0.136" "ubuntu@192.168.0.107")
+MACHINE_NAMES=("radxa_h0" "radxa_h1" "radxa_h2" "radxa_h3")
+IMAGE_NAMES=("holohover-light-aa"  "holohover-light-aa"  "holohover-light-aa" "holohover-light-aa")
+USERS=("ubuntu" "ubuntu" "ubuntu" "ubuntu")
 
-REMOTE_IPS=("ubuntu@192.168.0.71" "ubuntu@192.168.0.72" "ubuntu@192.168.0.131")
-MACHINE_NAMES=("la016" "la017" "radxa_new")
-IMAGE_NAMES=("holohover" "holohover" "holohover-light-aa")
-USERS=("ubuntu" "ubuntu" "ubuntu")
-EMBEDDED_CONTROLLER=(false false true)
+# To run OFFBOARD
+# REMOTE_IPS=("ubuntu@192.168.0.71" "ubuntu@192.168.0.72")
+# MACHINE_NAMES=("la016" "la017")
+# IMAGE_NAMES=("holohover" "holohover") 
+# USERS=("ubuntu" "ubuntu")
 
 
-# REMOTE_IPS=("ubuntu@192.168.0.131")
-# MACHINE_NAMES=("radxa_new")
-# IMAGE_NAMES=("holohover-light-aa")
-# USERS=("ubuntu")
-# EMBEDDED_CONTROLLER=(true)
+# These are read just to start the fc nodes, should not be changed even to run offboard
+FC_REMOTE_IPS=("ubuntu@192.168.0.131" "ubuntu@192.168.0.122" "ubuntu@192.168.0.136" "ubuntu@192.168.0.107")
+FC_CONTROLLER=("h0" "h1" "h2" "h3")
 
 
 MAIN_IP="192.168.0.70"

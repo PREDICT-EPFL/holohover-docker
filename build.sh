@@ -7,8 +7,8 @@ fi
 
 if [ "$1" = "pi" ]; then
     platform="linux/arm64"
-    image="holohover-light-aa"
-    cp Dockerfile.pi Dockerfile
+    image="holohover-light-base"
+    cp Dockerfile.pibase Dockerfile
 elif [ "$1" = "pc" ]; then
     platform="linux/amd64"
     image="holohover"

@@ -18,6 +18,7 @@ for subdir in */; do
     echo "Entering directory: $subdir"
     cd $subdir
     echo "ln -s  locFuns-$ARCH.so locFuns.so"
+    rm locFuns.so
     ln -s  locFuns-$ARCH.so locFuns.so
     cd -
   fi

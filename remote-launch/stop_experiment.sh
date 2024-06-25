@@ -9,7 +9,7 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
 
     #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
     echo ssh ${REMOTE_IPS[i]} $COMMAND
-    ssh ${REMOTE_IPS[i]} $COMMAND
+    ssh ${REMOTE_IPS[i]} $COMMAND &
 done
 
 wait

@@ -4,27 +4,21 @@ WORKDIR /root/ros2_ws
 
 COPY ./bin/install.sh /root/install.sh
 
-
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
     libbox2d-dev \
     libeigen3-dev \
     libmatio-dev \
     libgpiod-dev \
-    gdb \
     ros-humble-rosbag2-storage-mcap \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && echo "export ROS_DOMAIN_ID=123; source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc \
+    && echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc \
     && /root/install.sh  \
     && /ros_entrypoint.sh
 
-
-RUN echo aaaa
-
 COPY ./ws/src /root/ros2_ws/src
-
 
 RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select holohover_msgs holohover_drivers holohover_utils holohover_common  holohover_navigation holohover_control holohover_dmpc
 

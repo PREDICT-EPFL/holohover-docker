@@ -9,6 +9,8 @@ touch .bash_history
 mkdir -p log
 
 sudo docker run -it --rm --name $CONT \
+    --env ROS_DOMAIN_ID=123 \
+    --env ROS_DISCOVERY_SERVER=192.168.0.70:11811 \
     --privileged \
     --cap-add=SYS_NICE \
     --env="DISPLAY" \

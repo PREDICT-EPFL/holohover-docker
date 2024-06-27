@@ -17,12 +17,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && echo "export ROS_DOMAIN_ID=123; source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc \
+    && echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc \
     && /root/install.sh  \
     && /ros_entrypoint.sh
-
-
-RUN echo aaaa
 
 COPY ./ws/src /root/ros2_ws/src
 

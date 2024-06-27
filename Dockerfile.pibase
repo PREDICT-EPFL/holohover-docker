@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" >> /root/.bashrc \
+    && echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" > /root/source.sh \
+    && echo "source /root/source.sh" >> /root/.bashrc \
     && /root/install.sh  \
     && /ros_entrypoint.sh
 

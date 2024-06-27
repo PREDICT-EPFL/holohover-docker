@@ -75,7 +75,7 @@ tmux send-keys "ssh ${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 0
 
-tmux send-keys "docker exec -it holohover /bin/bash -c \"export ROS_DOMAIN_ID=123 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $LAUNCH_FILE experiment:=$EXPERIMENT_FILE machine:=master record:='true'\" " C-m
+tmux send-keys "docker exec -it holohover /bin/bash -c \"export ROS_DOMAIN_ID=123 && export ROS_DISCOVERY_SERVER=127.0.0.1:11811 && source /opt/ros/humble/setup.bash && source /root/ros2_ws/install/local_setup.bash && ros2 launch holohover_utils $LAUNCH_FILE experiment:=$EXPERIMENT_FILE machine:=master record:='true' | tee /root/ros2_ws/log/console-master.log\" " C-m
 # tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE master" C-m
 
 tmux select-pane -t 5

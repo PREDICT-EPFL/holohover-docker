@@ -2,9 +2,5 @@ FROM holohover-light-base
 
 WORKDIR /root/ros2_ws
 
-RUN echo aaaa
-COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh
-COPY ./bin/stop_controller.sh /root/stop_controller.sh
-
 COPY ./ws/src /root/ros2_ws/src
 

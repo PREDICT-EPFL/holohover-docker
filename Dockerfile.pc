@@ -26,6 +26,8 @@ COPY ./ws/src /root/ros2_ws/src
 
 RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install 
 
-COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh
 COPY ./bin/stop_controller.sh /root/stop_controller.sh
+COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh
+COPY ./bin/fastrtps_profiles_superclient.xml /root/fastrtps_profiles_superclient.xml
+
 RUN /bin/bash /root/ocpSpecsSymlink.sh x86

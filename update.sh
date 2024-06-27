@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 cp Dockerfile.piupdate Dockerfile
 
@@ -14,6 +14,3 @@ sudo docker tag holohover-light-aa localhost:5000/holohover-light-aa
 docker push localhost:5000/holohover-light-aa
 
 rm Dockerfile
-
-
-

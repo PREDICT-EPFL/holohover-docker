@@ -20,6 +20,7 @@ else
     sudo docker run --rm --name holohover-light-aa \
     --env ROS_DOMAIN_ID=123 \
     --env ROS_DISCOVERY_SERVER=192.168.0.70:11811 \
+    --env FASTRTPS_DEFAULT_PROFILES_FILE=/root/fastrtps_profiles_superclient.xml \
     --privileged \
     --cap-add=SYS_NICE \
     --env="DISPLAY" \

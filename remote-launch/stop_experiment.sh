@@ -27,6 +27,7 @@ mkdir -p $DIR/master
 
 sudo mv ~/holohover-docker/log/rosbag* $DIR
 sudo mv ~/holohover-docker/log/dmpc* $DIR/master
+sudo mv ~/holohover-docker/log/console* $DIR/master
 
 
 
@@ -38,7 +39,7 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     echo scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
     scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
     echo ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
-    ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
+    ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
 done
 
 read -p "Do you want to save logs? (YES/no): " answer

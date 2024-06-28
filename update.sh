@@ -2,7 +2,7 @@
 
 cp Dockerfile.piupdate Dockerfile
 
-PACKAGES="holohover_dmpc"
+PACKAGES="holohover_navigation holohover_dmpc"
 
 echo "RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select $PACKAGES
 RUN /bin/bash /root/ocpSpecsSymlink.sh amd64" >> Dockerfile

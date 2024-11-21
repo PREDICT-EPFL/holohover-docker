@@ -10,6 +10,7 @@ cd
 echo "Installing QUILL..."
 git clone http://github.com/odygrd/quill.git quill
 cd quill
+git checkout tags/v4.4.1
 
 mkdir build
 cd build

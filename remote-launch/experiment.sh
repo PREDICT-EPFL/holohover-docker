@@ -11,11 +11,16 @@ fi
 
 EXPERIMENT_FILE=$1
 
-echo "Synchronizing files with remote machines"
+echo "Synchronizing code with remote machines."
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
-        echo rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws
-        rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws &
+        if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
+            echo "Machine ${REMOTE_IPS[i]} is reachable"
+            echo rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws
+            rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws &
+        else
+            echo "Machine ${REMOTE_IPS[i]} is not reachable"
+        fi
     fi
 done
 
@@ -34,15 +39,18 @@ wait
 
 # Loop through each remote machine
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
-    
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
-        COMMAND="/home/${USERS[i]}/holohover-docker/remote-launch/launch_docker.sh ${IMAGE_NAMES[i]} $LAUNCH_FILE $EXPERIMENT_FILE"
-        CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
-        
-        echo ssh ${REMOTE_IPS[i]} $CMD
-        ssh ${REMOTE_IPS[i]} $CMD
+        if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
+            echo "Machine ${REMOTE_IPS[i]} is reachable"
+            COMMAND="/home/${USERS[i]}/holohover-docker/remote-launch/launch_docker.sh ${IMAGE_NAMES[i]} $LAUNCH_FILE $EXPERIMENT_FILE"
+            CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
+            
+            echo ssh ${REMOTE_IPS[i]} $CMD
+            ssh ${REMOTE_IPS[i]} $CMD
+        else
+            echo "Machine ${REMOTE_IPS[i]} is not reachable"
+        fi
     fi
-
     printf '\n\n\n'
 done
 

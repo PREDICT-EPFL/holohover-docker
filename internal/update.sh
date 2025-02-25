@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp Dockerfile.piupdate Dockerfile
+cp "$(dirname "$0")/docker/Dockerfile.piupdate" Dockerfile
 
 PACKAGES="holohover_navigation holohover_dmpc"
 

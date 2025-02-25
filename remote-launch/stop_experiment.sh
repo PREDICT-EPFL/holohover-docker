@@ -3,13 +3,19 @@
 source "$(dirname "$0")/config.sh"
 
 # Loop through each remote machine
+echo "Stopping remote machines controllers"
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
-    #COMMAND="sudo docker stop ${IMAGE_NAMES[i]}"
-    COMMAND="sudo docker exec ${IMAGE_NAMES[i]} /bin/bash /root/stop_controller.sh"
+    # Try to ping the remote machine
+    if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
+        #COMMAND="sudo docker stop ${IMAGE_NAMES[i]}"
+        COMMAND="sudo docker exec ${IMAGE_NAMES[i]} /bin/bash /root/stop_controller.sh"
 
-    #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
-    echo ssh ${REMOTE_IPS[i]} $COMMAND
-    ssh ${REMOTE_IPS[i]} $COMMAND &
+        #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
+        echo ssh ${REMOTE_IPS[i]} $COMMAND
+        ssh ${REMOTE_IPS[i]} $COMMAND &
+    else
+        echo "Unable to reach ${REMOTE_IPS[i]}"
+    fi
 done
 
 wait
@@ -33,13 +39,19 @@ sudo mv ~/holohover-docker/log/console* $DIR/master
 
 
 # Loop through each remote machine
+echo "Copying logs from remote machines"
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
-    DIR=~/holohover-docker/log/remote-$DATE/${MACHINE_NAMES[i]}
-    mkdir -p $DIR
-    echo scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
-    scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
-    echo ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
-    ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
+    # Try to ping the remote machine
+    if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
+        DIR=~/holohover-docker/log/remote-$DATE/${MACHINE_NAMES[i]}
+        mkdir -p $DIR
+        echo scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
+        scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
+        echo ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
+        ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
+    else
+        echo "Unable to reach ${REMOTE_IPS[i]}"
+    fi
 done
 
 read -p "Do you want to save logs? (YES/no): " answer

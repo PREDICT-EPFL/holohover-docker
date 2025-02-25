@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./config.sh
+source "$(dirname "$0")/config.sh"
 
 if [ "$#" -ne 1 ]; then
     echo "$0 - Wrong number of parameters"
@@ -11,6 +11,7 @@ fi
 
 EXPERIMENT_FILE=$1
 
+echo "Synchronizing files with remote machines"
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
         echo rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./config.sh
+source "$(dirname "$0")/config.sh"
 
 
 for ((i = 0; i < ${#FC_REMOTE_IPS[@]}; i++)); do

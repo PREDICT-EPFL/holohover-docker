@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./config.sh
+source "$(dirname "$0")/config.sh"
 
 for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then

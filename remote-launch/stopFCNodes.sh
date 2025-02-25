@@ -1,7 +1,6 @@
 #!/bin/bash
 
-source ./config.sh
-
+source "$(dirname "$0")/config.sh"
 
 
 # Loop through each remote machine

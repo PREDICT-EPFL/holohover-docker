@@ -47,17 +47,20 @@ def fc_launch_handler(args):
 def fc_stop_handler(args):
     subprocess.run(["bash", "remote-launch/stopFCNodes.sh"])
 
+def docker_run(args):
+    subprocess.run(["bash", "internal/run.sh"])
+
 def main():
     parser = argparse.ArgumentParser(description="CLI tool for managing Holohover experiments and Docker images.")
     subparsers = parser.add_subparsers(dest="command")
     
     # build {pi/pc}
-    build_parser = subparsers.add_parser("build", help="Builds docker image")
+    build_parser = subparsers.add_parser("docker-build", help="Builds docker image")
     build_parser.add_argument("type", choices=["pi", "pc"], help="Target platform")
     build_parser.set_defaults(func=build_handler)
     
     # update
-    update_parser = subparsers.add_parser("update-pi-image", help="Updates docker image for pi")
+    update_parser = subparsers.add_parser("docker-update-pi-image", help="Updates docker image for pi")
     update_parser.set_defaults(func=update_pi_image_handler)
     
     # experiment
@@ -66,8 +69,12 @@ def main():
     experiment_parser.set_defaults(func=experiment_handler)
 
     # install-docker
-    install_docker_parser = subparsers.add_parser("install-docker", help="Installs Docker")
+    install_docker_parser = subparsers.add_parser("docker-install", help="Installs Docker")
     install_docker_parser.set_defaults(func=install_docker_handler)
+
+    # run docker image
+    install_docker_parser = subparsers.add_parser("docker-run", help="Installs Docker")
+    install_docker_parser.set_defaults(func=docker_run)
     
     # edit config
     edit_config_parser = subparsers.add_parser("edit-config", help="Starts editor to edit config file")
@@ -82,11 +89,11 @@ def main():
     stop_experiment_parser.set_defaults(func=stop_experiment_handler)
     
     # upload images
-    upload_images_parser = subparsers.add_parser("upload-images", help="Upload docker images to remote machines")
+    upload_images_parser = subparsers.add_parser("docker-upload-images", help="Upload docker images to remote machines")
     upload_images_parser.set_defaults(func=upload_images_handler)
     
     # stop docker
-    stop_docker_parser = subparsers.add_parser("stop-docker", help="Stops docker daemon on the remote machines")
+    stop_docker_parser = subparsers.add_parser("docker-stop", help="Stops docker daemon on the remote machines")
     stop_docker_parser.set_defaults(func=stop_docker_handler)
     
     # update holohover docker on remote machines

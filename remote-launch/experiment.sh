@@ -16,8 +16,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
         if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
             echo "Machine ${REMOTE_IPS[i]} is reachable"
-            echo rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws
-            rsync -av ~/holohover-docker/ws/src ${REMOTE_IPS[i]}:~/holohover-docker/ws &
+            echo rsync -av ~/holohover-docker/ws/src ${USERS[i]}@${REMOTE_IPS[i]}:~/holohover-docker/ws
+            rsync -av ~/holohover-docker/ws/src ${USERS[i]}@${REMOTE_IPS[i]}:~/holohover-docker/ws &
         else
             echo "Machine ${REMOTE_IPS[i]} is not reachable"
         fi
@@ -88,7 +88,7 @@ tmux send-keys "docker exec -it holohover /bin/bash -c \"source /root/source.sh 
 # tmux send-keys "~/holohover-docker/remote-launch/launch_docker.sh holohover $LAUNCH_FILE $EXPERIMENT_FILE master" C-m
 
 tmux select-pane -t 5
-tmux send-keys "bash stop_experiment.sh"
+tmux send-keys "./holohover stop-experiment"
 #tmux send-keys "bash launch_trajectory.sh trajectory4.yaml"
 
 tmux attach-session -t "Holohover"

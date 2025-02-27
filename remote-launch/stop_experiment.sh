@@ -45,8 +45,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
     if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
         DIR=~/holohover-docker/log/remote-$DATE/${MACHINE_NAMES[i]}
         mkdir -p $DIR
-        echo scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
-        scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
+        echo scp -r ${USERS[i]}@${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
+        scp -r ${USERS[i]}@${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
         echo ssh ${USERS[i]}@${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
         ssh ${USERS[i]}@${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
     else

@@ -9,7 +9,7 @@ for ((i = 0; i < ${#FC_REMOTE_IPS[@]}; i++)); do
    echo "Pinging ${FC_REMOTE_IPS[i]}..."
    if ping -c 1 ${FC_REMOTE_IPS[i]} &> /dev/null; then
        echo "Machine ${FC_REMOTE_IPS[i]} is reachable. Pulling latest code..."
-       ssh ${FC_USERS[i]}@${FC_REMOTE_IPS[i]} "cd holohover-docker && git checkout $current_branch && git pull"
+       ssh ${FC_USERS[i]}@${FC_REMOTE_IPS[i]} "cd holohover-docker && git pull && git checkout $current_branch && git pull"
    else
        echo "Machine ${FC_REMOTE_IPS[i]} is not reachable."
    fi

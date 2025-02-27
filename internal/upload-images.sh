@@ -8,8 +8,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         if ping -c 1 ${REMOTE_IPS[i]} &> /dev/null; then
             CMD="docker pull 192.168.0.70:5000/${IMAGE_NAMES[i]} && docker tag 192.168.0.70:5000/${IMAGE_NAMES[i]} ${IMAGE_NAMES[i]} && docker image prune -f"
 
-            echo ssh ${REMOTE_IPS[i]} $CMD
-            ssh ${REMOTE_IPS[i]} $CMD &
+            echo ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD
+            ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD &
         else
             echo "Ping to ${REMOTE_IPS[i]} failed"
         fi
@@ -21,8 +21,8 @@ for ((i = 0; i < ${#FC_REMOTE_IPS[@]}; i++)); do
         if ping -c 1 ${FC_REMOTE_IPS[i]} &> /dev/null; then
             CMD="docker pull 192.168.0.70:5000/${IMAGE_NAMES[i]} && docker tag 192.168.0.70:5000/${IMAGE_NAMES[i]} ${IMAGE_NAMES[i]} && docker image prune -f"
 
-            echo ssh ${FC_REMOTE_IPS[i]} $CMD
-            ssh ${FC_REMOTE_IPS[i]} $CMD &
+            echo ssh ${FC_USERS[i]}@${FC_REMOTE_IPS[i]} $CMD
+            ssh ${FC_USERS[i]}@${FC_REMOTE_IPS[i]} $CMD &
         else
             echo "Ping to ${FC_REMOTE_IPS[i]} failed"
         fi

@@ -30,8 +30,8 @@ wait
 # for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
 #     if ! [ "${REMOTE_IPS[i]}" = "localhost" ]; then
 #         CMD="sudo systemctl restart docker"
-#         echo ssh ${REMOTE_IPS[i]} $CMD
-#         ssh ${REMOTE_IPS[i]} $CMD &
+#         echo ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD
+#         ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD &
 #     fi
 # done
 
@@ -45,8 +45,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
             COMMAND="/home/${USERS[i]}/holohover-docker/remote-launch/launch_docker.sh ${IMAGE_NAMES[i]} $LAUNCH_FILE $EXPERIMENT_FILE"
             CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
             
-            echo ssh ${REMOTE_IPS[i]} $CMD
-            ssh ${REMOTE_IPS[i]} $CMD
+            echo ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD
+            ssh ${USERS[i]}@${REMOTE_IPS[i]} $CMD
         else
             echo "Machine ${REMOTE_IPS[i]} is not reachable"
         fi
@@ -71,16 +71,16 @@ sleep 0.2
 
 
 tmux select-pane -t 1
-tmux send-keys "ssh ${REMOTE_IPS[0]} \"tail -f $LOG_FILE\"" C-m
+tmux send-keys "ssh ${USERS[0]}@${REMOTE_IPS[0]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 2
-tmux send-keys "ssh ${REMOTE_IPS[1]} \"tail -f $LOG_FILE\"" C-m
+tmux send-keys "ssh ${USERS[1]}@${REMOTE_IPS[1]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 3
-tmux send-keys "ssh ${REMOTE_IPS[2]} \"tail -f $LOG_FILE\"" C-m
+tmux send-keys "ssh ${USERS[2]}@${REMOTE_IPS[2]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 4
-tmux send-keys "ssh ${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
+tmux send-keys "ssh ${USERS[3]}@${REMOTE_IPS[3]} \"tail -f $LOG_FILE\"" C-m
 
 tmux select-pane -t 0
 

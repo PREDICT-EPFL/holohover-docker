@@ -11,8 +11,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         COMMAND="sudo docker exec ${IMAGE_NAMES[i]} /bin/bash /root/stop_controller.sh"
 
         #CMD="$COMMAND ${MACHINE_NAMES[i]} > $LOG_FILE 2>&1 &"
-        echo ssh ${REMOTE_IPS[i]} $COMMAND
-        ssh ${REMOTE_IPS[i]} $COMMAND &
+        echo ssh ${USERS[i]}@${REMOTE_IPS[i]} $COMMAND
+        ssh ${USERS[i]}@${REMOTE_IPS[i]} $COMMAND &
     else
         echo "Unable to reach ${REMOTE_IPS[i]}"
     fi
@@ -47,8 +47,8 @@ for ((i = 0; i < ${#REMOTE_IPS[@]}; i++)); do
         mkdir -p $DIR
         echo scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
         scp -r ${REMOTE_IPS[i]}:~/holohover-docker/log $DIR
-        echo ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
-        ssh ${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
+        echo ssh ${USERS[i]}@${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*"
+        ssh ${USERS[i]}@${REMOTE_IPS[i]} "sudo rm -rf ~/holohover-docker/log/*" &
     else
         echo "Unable to reach ${REMOTE_IPS[i]}"
     fi

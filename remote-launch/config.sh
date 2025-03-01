@@ -24,7 +24,7 @@ fi
 # These are read just to start the fc nodes, should not be changed even to run offboard
 FC_REMOTE_IPS=("192.168.0.131" "192.168.0.122" "192.168.0.136" "192.168.0.108" "192.168.0.109")
 FC_CONTROLLER=("h0" "h1" "h2" "h3" "o4")
-FC_USERS=("ubuntu" "ubuntu" "ubuntu" "ubuntu")
+FC_USERS=("ubuntu" "ubuntu" "ubuntu" "ubuntu" "ubuntu")
 
 MAIN_IP="192.168.0.70"
 

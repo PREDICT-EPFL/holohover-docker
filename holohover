@@ -50,6 +50,9 @@ def fc_stop_handler(args):
 def docker_run(args):
     subprocess.run(["bash", "internal/run.sh"])
 
+def docker_attach(args):
+    subprocess.run(["bash", "internal/attach.sh"])
+
 def main():
     parser = argparse.ArgumentParser(description="CLI tool for managing Holohover experiments and Docker images.")
     subparsers = parser.add_subparsers(dest="command")
@@ -73,8 +76,12 @@ def main():
     install_docker_parser.set_defaults(func=install_docker_handler)
 
     # run docker image
-    install_docker_parser = subparsers.add_parser("docker-run", help="Installs Docker")
+    install_docker_parser = subparsers.add_parser("docker-run", help="Runs Docker image")
     install_docker_parser.set_defaults(func=docker_run)
+
+    # attach to running docker image
+    install_docker_parser = subparsers.add_parser("docker-attach", help="Attach to running Docker image")
+    install_docker_parser.set_defaults(func=docker_attach)
     
     # edit config
     edit_config_parser = subparsers.add_parser("edit-config", help="Starts editor to edit config file")

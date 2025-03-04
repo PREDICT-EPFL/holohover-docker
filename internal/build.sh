@@ -8,11 +8,11 @@ fi
 if [ "$1" = "pi" ]; then
     platform="linux/arm64"
     image="holohover-light-base"
-    cp Dockerfile.pibase Dockerfile
+    cp "$(dirname "$0")/docker/Dockerfile.pibase" Dockerfile
 elif [ "$1" = "pc" ]; then
     platform="linux/amd64"
     image="holohover"
-    cp Dockerfile.pc Dockerfile
+    cp "$(dirname "$0")/docker/Dockerfile.pc" Dockerfile
 else
     echo "Invalid platform: $1"
     echo "Usage:"

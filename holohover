@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+# PYTHON_ARGCOMPLETE_OK
+import argparse
+import argcomplete
+import subprocess
+
+def build_handler(args):
+    if args.type == "pi":
+        subprocess.run(["bash", "internal/build.sh", "pi"])
+    elif args.type == "pc":
+        subprocess.run(["bash", "internal/build.sh", "pc"])
+
+def update_pi_image_handler(args):
+    subprocess.run(["bash", "internal/update.sh"])
+
+def experiment_handler(args):
+    subprocess.run(["bash", "remote-launch/experiment.sh", args.filename])
+
+def install_docker_handler(args):
+    subprocess.run(["bash", "internal/install-docker.sh"])
+
+def edit_config_handler(args):
+    subprocess.run(["nano", "remote-launch/config.sh"])
+
+def shutdown_handler(args):
+    response = input("Are you sure you want to shutdown the Radxas? (yes/NO): ")
+    if response.lower() == "yes":
+        subprocess.run(["bash", "remote-launch/shutdownAll.sh"])
+    else:
+        print("Shutdown aborted.")
+
+def stop_experiment_handler(args):
+    subprocess.run(["bash", "remote-launch/stop_experiment.sh"])
+
+def upload_images_handler(args):
+    subprocess.run(["bash", "internal/upload-images.sh"])
+
+def stop_docker_handler(args):
+    subprocess.run(["bash", "remote-launch/stopDocker.sh"])
+
+def update_holohover_handler(args):
+    subprocess.run(["bash", "remote-launch/holohover-git.sh"])
+
+def fc_launch_handler(args):
+    subprocess.run(["bash", "remote-launch/launchFC.sh"])
+
+def fc_stop_handler(args):
+    subprocess.run(["bash", "remote-launch/stopFCNodes.sh"])
+
+def docker_run(args):
+    subprocess.run(["bash", "internal/run.sh"])
+
+def docker_attach(args):
+    subprocess.run(["bash", "internal/attach.sh"])
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI tool for managing Holohover experiments and Docker images.")
+    subparsers = parser.add_subparsers(dest="command")
+    
+    # build {pi/pc}
+    build_parser = subparsers.add_parser("docker-build", help="Builds docker image")
+    build_parser.add_argument("type", choices=["pi", "pc"], help="Target platform")
+    build_parser.set_defaults(func=build_handler)
+    
+    # update
+    update_parser = subparsers.add_parser("docker-update-pi-image", help="Updates docker image for pi")
+    update_parser.set_defaults(func=update_pi_image_handler)
+    
+    # experiment
+    experiment_parser = subparsers.add_parser("experiment", help="Launch experiment")
+    experiment_parser.add_argument("filename", help="Experiment filename")
+    experiment_parser.set_defaults(func=experiment_handler)
+
+    # install-docker
+    install_docker_parser = subparsers.add_parser("docker-install", help="Installs Docker")
+    install_docker_parser.set_defaults(func=install_docker_handler)
+
+    # run docker image
+    install_docker_parser = subparsers.add_parser("docker-run", help="Runs Docker image")
+    install_docker_parser.set_defaults(func=docker_run)
+
+    # attach to running docker image
+    install_docker_parser = subparsers.add_parser("docker-attach", help="Attach to running Docker image")
+    install_docker_parser.set_defaults(func=docker_attach)
+    
+    # edit config
+    edit_config_parser = subparsers.add_parser("edit-config", help="Starts editor to edit config file")
+    edit_config_parser.set_defaults(func=edit_config_handler)
+    
+    # shutdown
+    shutdown_parser = subparsers.add_parser("shutdown", help="Turns the Radxas off")
+    shutdown_parser.set_defaults(func=shutdown_handler)
+    
+    # stop_experiment
+    stop_experiment_parser = subparsers.add_parser("stop-experiment", help="Stops the experiment on remote machines")
+    stop_experiment_parser.set_defaults(func=stop_experiment_handler)
+    
+    # upload images
+    upload_images_parser = subparsers.add_parser("docker-upload-images", help="Upload docker images to remote machines")
+    upload_images_parser.set_defaults(func=upload_images_handler)
+    
+    # stop docker
+    stop_docker_parser = subparsers.add_parser("docker-stop", help="Stops docker daemon on the remote machines")
+    stop_docker_parser.set_defaults(func=stop_docker_handler)
+    
+    # update holohover docker on remote machines
+    update_holohover_parser = subparsers.add_parser("update-holohover-scripts", help="Updates the scripts on remote machines")
+    update_holohover_parser.set_defaults(func=update_holohover_handler)
+
+    # fc-launch
+    fc_launch_parser = subparsers.add_parser("fc-launch", help="Launches flight controller")
+    fc_launch_parser.set_defaults(func=fc_launch_handler)
+
+    # fc-stop
+    fc_stop_parser = subparsers.add_parser("fc-stop", help="Stops flight controller")
+    fc_stop_parser.set_defaults(func=fc_stop_handler)
+
+    argcomplete.autocomplete(parser)
+    args = parser.parse_args()
+    if hasattr(args, "func"):
+        args.func(args)
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()

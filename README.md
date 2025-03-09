@@ -11,26 +11,6 @@ This repository includes:
 - **Logging and data collection tools** for gathering logs and experimental data from remote devices.  
 
 ## Usage  
-The entrypoint is the `holohover` Python script, which makes use of all the scripts and tools in this repository.
-
-The configuration of the IP addresses of the remote machines (both workstations and embedded platforms on the hovercraft) is done in the `remote-launch/config.sh` file.
-
-The `holohover` script exposes the following commands:
-
-
-# Holohover Docker  
-
-This repository contains all the necessary files to set up and manage the **Holohover system** using Docker.  
-
-## Contents  
-
-This repository includes:  
-- **Dockerfiles** for both workstation and embedded platform images.  
-- **Scripts for Docker image management**, including building, pushing, and handling Docker registries.  
-- **Experiment management scripts** for remotely starting and stopping experiments.  
-- **Logging and data collection tools** for gathering logs and experimental data from remote devices.  
-
-## Usage  
 
 The entry point is the `holohover` Python script, which integrates all the scripts and tools in this repository.  
 

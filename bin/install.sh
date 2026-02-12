@@ -35,6 +35,7 @@ cd
 echo "Installing PIQP"
 git clone https://github.com/PREDICT-EPFL/piqp.git
 cd piqp
+git checkout v0.4.2
 
 mkdir build
 cd build

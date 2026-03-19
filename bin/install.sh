@@ -27,7 +27,16 @@ git checkout "$CASADI_VERSION"
 
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DWITH_IPOPT=ON \
+  -DWITH_BUILD_IPOPT=ON \
+  -DIPOPT_USE_SYSTEM_MUMPS=OFF \
+  -DWITH_HPIPM=ON \
+  -DWITH_BUILD_HPIPM=ON \
+  -DWITH_BUILD_BLASFEO=ON \
+  -DWITH_BUILD_SPRAL=OFF \
+  -DWITH_BUILD_REQUIRED=ON
 make -j12
 sudo make install
 
@@ -43,5 +52,5 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF -DBUILD_BENCHMARKS=OFF
 make -j12
 sudo make install
 
-
 cd $curr_dir
+ldconfig

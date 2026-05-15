@@ -15,13 +15,15 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
     && echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" > /root/source.sh \
-    && echo "source /root/source.sh" >> /root/.bashrc \
-    && /root/install.sh  \
-    && /ros_entrypoint.sh
+    && echo "source /root/source.sh" >> /root/.bashrc
+
+RUN /root/install.sh &&/ros_entrypoint.sh
+
+ENV casadi_DIR=/root/casadi
 
 COPY ./ws/src /root/ros2_ws/src
 
-RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --packages-select holohover_msgs holohover_drivers holohover_utils holohover_common  holohover_navigation holohover_control holohover_dmpc
+RUN . /opt/ros/humble/setup.sh && cd /root/ros2_ws && colcon build --symlink-install --cmake-args -Dcasadi_DIR=/root/casadi/build -DCMAKE_CXX_FLAGS="-I/root/casadi -I/root/casadi/build"  --packages-select holohover_msgs holohover_drivers holohover_utils holohover_common  holohover_navigation holohover_control 
 
 COPY ./bin/stop_controller.sh /root/stop_controller.sh
 COPY ./bin/ocpSpecsSymlink.sh /root/ocpSpecsSymlink.sh

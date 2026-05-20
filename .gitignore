@@ -2,3 +2,4 @@ ws
 .bash_history
 log
 config
+.venv

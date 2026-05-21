@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     wget \
     gfortran \
     python3-pyqtgraph \
+    python3-virtualenv \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/

@@ -6,6 +6,8 @@ WORKDIR /root/ros2_ws
 SHELL ["/bin/bash", "-c"]
 
 COPY ./bin/install.sh /root/install.sh
+COPY ./internal/requirements.txt /root/ros2_ws/requirements.txt
+
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -22,6 +24,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && apt-get clean autoclean \
     && apt-get autoremove --yes \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+
+RUN virtualenv -p python3 ./venv \
+    && touch ./venv/COLCON_IGNORE \
+    && source ./venv/bin/activate \
+    && python3 -m pip install -r requirements.txt
 
 RUN echo "source /opt/ros/humble/setup.bash; source /root/ros2_ws/install/local_setup.sh" > /root/source.sh \
     && echo "source /root/source.sh" >> /root/.bashrc \

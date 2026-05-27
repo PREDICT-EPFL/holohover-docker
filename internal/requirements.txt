@@ -1,0 +1,8 @@
+animation==0.0.7
+control==0.10.2
+flax==0.10.7
+interpax==0.3.14
+jax==0.6.2
+jaxopt==0.8.5
+numpy==2.2.6
+scipy==1.15.3

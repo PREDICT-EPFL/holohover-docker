@@ -3,3 +3,5 @@ ws
 log
 config
 .venv
+**/build
+**/install
